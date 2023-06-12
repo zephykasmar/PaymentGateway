@@ -28,7 +28,7 @@ localhost:3032/payments
 
 ### API Endpoints
 ---
-### Payment Retrieval
+### Payment Processing
 
 
 ```bash

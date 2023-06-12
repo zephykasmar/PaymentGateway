@@ -37,6 +37,7 @@ curl -X POST -H "Content-Type: application/json" -d "{\"merchantId\": \"2134a701
 *host - [localhost:3030 | k8s-default-ingress-02c0809f77-890764471.us-west-2.elb.amazonaws.com]*
 #### `POST /process`
 Accepts a JSON object for a payment attempt.
+
 *Request:*
 
 ```json

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: deployment-analytics
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: app-analytics
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: app-analytics
+    spec:
+      containers:
+      - image: 109163296068.dkr.ecr.us-west-2.amazonaws.com/payments-analytics:latest
+        imagePullPolicy: Always
+        name: app-analytics
+        ports:
+        - containerPort: 80
+        env:
+        - name: ConnectionStrings__MongoDb
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: MONGODB_CONNECTION_STRING
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: service-analytics
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  type: NodePort
+  selector:
+    app.kubernetes.io/name: app-analytics
